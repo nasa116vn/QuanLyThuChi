@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         data = openOrCreateDatabase("data.db", MODE_PRIVATE, null);
         share = getSharedPreferences("taikhoan", MODE_PRIVATE);
         sharetentaikhoan = getSharedPreferences("tentaikhoan", MODE_PRIVATE);
-        simpleDateFormat = new SimpleDateFormat("dd/M/yyyy");
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         AnhXa();
         TaoBangCoSoDuLieu();
     }
@@ -69,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                     "mavi int constraint mavi references tblvi(mavi) on delete cascade)");
 
             //Table Thu chi
-            data.execSQL("create table if not exists tblthuchi(mathuchi int primary key, loaithuchi text, sotienthuchi real, mota text, " +
+            data.execSQL("create table if not exists tblthuchi(mathuchi int primary key, loaithuchi text, sotienthuchi int, mota text, " +
                     "ngaythuchien date, giothuchi int,phutthuchi int, nhanthongbao int, mavi int constraint mavi references tblvi(mavi) on delete cascade, " +
                     "tentaikhoan text constraint tentaikhoan references tbltaikhoan(tentaikhoan) on delete cascade, " +
-                    "madanhmuc text constraint madanhmuc references tbldanhmucthuchi(madanhmuc) on delete cascade)");
-
+                    "madanhmuc int constraint madanhmuc references tbldanhmucthuchi(madanhmuc) on delete cascade)");
+                        // madanhmuc int
 
             //Table Ke hoach tiet kiem
             data.execSQL("create table if not exists tblkehoachtietkiem(makehoachtietkiem int primary key, tenkehoachtietkiem text, ngaybatdaukehoachtietkiem date, " +
@@ -549,7 +549,7 @@ public class MainActivity extends AppCompatActivity {
             ContentValues values = new ContentValues();
             values.put("matkhau", matkhau1.getText().toString());
             data.update("tbltaikhoan", values, "masobimat=?", new String[]{maso.getText().toString()});
-            thongbao = "Lấy lại mật khẩu thành công";
+            thongbao = "Tạo mật khẩu thành công";
             Toast.makeText(getApplicationContext(), thongbao, Toast.LENGTH_SHORT).show();
             return true;
         }
